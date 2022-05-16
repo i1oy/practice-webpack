@@ -11,15 +11,15 @@ module.exports = {
         rules: [
             {
                 test: /\.(s[ac]|c)ss$/i,
-                use:[
-                    MiniCSSExtractPlugin.loader, 
+                use: [
+                    MiniCSSExtractPlugin.loader,
                     "css-loader",
                     "postcss-loader",
                     "sass-loader"
                 ]
             },
             {
-                test: /\.js$/,
+                test: /\.jsx?$/,
                 exclude: /node_modules/,
                 use: {
                     loader: "babel-loader"
@@ -29,6 +29,11 @@ module.exports = {
     },
 
     plugins: [new MiniCSSExtractPlugin()],
+
+    resolve: {
+        extensions: [".js", ".jsx"],
+    },
+
     devtool: "source-map",
     devServer: {
         static: {
@@ -36,6 +41,6 @@ module.exports = {
         },
         // Since webpack-dev-server v4, HMR is enabled by default.
         // Usage via the CLI: `npx webpack serve --hot/--no-hot`
-        // hot: true,
+        hot: true,
     }
 }
