@@ -7,12 +7,28 @@ if (process.env.NODE_ENV === "production") {
 }
 module.exports = {
     mode: mode,
+    output: {
+        assetModuleFilename: "images/[hash][ext][query]"
+    },
     module: {
         rules: [
             {
+                test: /\.(png|jpe?g|gif|svg)$/i,
+                type: "asset",
+                // type: "asset/inline",
+                // parser: {
+                //     dataUrlCondition: {
+                //         maxSize: 30 * 1024
+                //     }
+                // }
+            },
+            {
                 test: /\.(s[ac]|c)ss$/i,
                 use: [
-                    MiniCSSExtractPlugin.loader,
+                    {
+                        loader: MiniCSSExtractPlugin.loader,
+                        options: { publicPath: "" },
+                    },
                     "css-loader",
                     "postcss-loader",
                     "sass-loader"
